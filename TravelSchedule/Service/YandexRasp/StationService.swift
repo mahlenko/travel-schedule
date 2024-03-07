@@ -8,18 +8,34 @@
 import OpenAPIRuntime
 import OpenAPIURLSession
 
-typealias NearestStations = Components.Schemas.Stations
+ typealias Station = Components.Schemas.Station
 
 /**
- Список ближайших станций
+ Расписание рейсов по станции
  
- Запрос позволяет получить список станций, находящихся в указанном радиусе от указанной точки.
- Максимальное количество возвращаемых станций — 50.
+ Запрос позволяет получить список рейсов, отправляющихся от указанной станции и информацию по каждому рейсу.
  
- @see https://yandex.ru/dev/rasp/doc/ru/reference/query-nearest-station
+ @see https://yandex.ru/dev/rasp/doc/ru/reference/schedule-on-station
  */
-protocol OnStationServiceProtocol {
-  func getOnStation(lat: Double, lng: Double, distance: Int) async throws -> NearestStations
+protocol StationServiceProtocol {
+    func getStation(station: String) async throws -> Station
 }
 
-final class NearestStationsService: OnStationServiceProtocol {}
+final class StationService: StationServiceProtocol {
+    private let client: Client
+    private let apikey: String
+
+    init(client: Client, apikey: String) {
+        self.client = client
+        self.apikey = apikey
+    }
+    
+    func getStation(station: String) async throws -> Station {
+//        let response = try await client.getStation(query: .init(
+//            apikey: apikey,
+//            station: station
+//        ))
+//        
+//        return try response.ok.body.json
+    }
+}

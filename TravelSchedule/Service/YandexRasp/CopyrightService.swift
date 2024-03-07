@@ -8,20 +8,25 @@
 import OpenAPIRuntime
 import OpenAPIURLSession
 
-// typealias Carrier = Components.Schemas.StationRoute
+// typealias Copyright = Components.Schemas.StationRoute
 
 /**
- Расписание рейсов по станции
+ Копирайт Яндекс Расписаний
  
- Запрос позволяет получить список рейсов, отправляющихся от указанной станции и информацию по каждому рейсу.
+ Запрос позволяет получить данные о Яндекс Расписаниях: URL сервиса, баннер в различных цветовых представлениях и уведомительный текст. 
+ Все эти данные следует разместить ниже или выше места, в котором расположена информация о расписаниях, в следующем порядке:
+
+ - Баннер.
+ - Уведомительный текст.
+ - URL Яндекс Расписаний.
  
- @see https://yandex.ru/dev/rasp/doc/ru/reference/schedule-on-station
+ @see https://yandex.ru/dev/rasp/doc/ru/reference/query-copyright
  */
 protocol CopyrightServiceProtocol {
-    func getCarrier(lat: Double, lng: Double) async throws -> Carrier
+    func getCopyright() async throws -> Copyright
 }
 
-final class CarrierService: NearestSettlementServiceProtocol {
+final class CopyrightService: CopyrightServiceProtocol {
     private let client: Client
     private let apikey: String
     
@@ -30,6 +35,8 @@ final class CarrierService: NearestSettlementServiceProtocol {
         self.apikey = apikey
     }
     
-    func getNearestSettlement(lat: Double, lng: Double) async throws -> Carrier {
+    func getCopyright() async throws -> Copyright {
+//        let response = try await client.getCopyright()
+//        return try response.ok.body.json
     }
 }
