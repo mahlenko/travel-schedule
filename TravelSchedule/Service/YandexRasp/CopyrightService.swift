@@ -1,42 +1,26 @@
 //
-//  Copyright.swift
+//  CopyrightService.swift
 //  TravelSchedule
 //
-//  Created by Сергей Махленко on 07.03.2024.
+//  Created by Сергей Махленко on 10.03.2024.
 //
 
-import OpenAPIRuntime
-import OpenAPIURLSession
+typealias CopyrightResponse = Components.Schemas.CopyrightResponse
 
-// typealias Copyright = Components.Schemas.StationRoute
-
-/**
- Копирайт Яндекс Расписаний
- 
- Запрос позволяет получить данные о Яндекс Расписаниях: URL сервиса, баннер в различных цветовых представлениях и уведомительный текст. 
- Все эти данные следует разместить ниже или выше места, в котором расположена информация о расписаниях, в следующем порядке:
-
- - Баннер.
- - Уведомительный текст.
- - URL Яндекс Расписаний.
- 
- @see https://yandex.ru/dev/rasp/doc/ru/reference/query-copyright
- */
 protocol CopyrightServiceProtocol {
-    func getCopyright() async throws -> Copyright
+    func getCopyright() async throws -> CopyrightResponse
 }
 
 final class CopyrightService: CopyrightServiceProtocol {
     private let client: Client
-    private let apikey: String
-    
-    init(client: Client, apikey: String) {
+
+    init(client: Client) {
         self.client = client
-        self.apikey = apikey
     }
     
-    func getCopyright() async throws -> Copyright {
-//        let response = try await client.getCopyright()
-//        return try response.ok.body.json
+    func getCopyright() async throws -> CopyrightResponse {
+        let response = try await client.getCopyright()
+        
+        return try response.ok.body.json
     }
 }

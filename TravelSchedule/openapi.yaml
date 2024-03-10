@@ -186,6 +186,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/StationsResponse"
+
         400:
           $ref: "#/components/responses/400"
         404:
@@ -493,7 +494,7 @@ components:
           type: string
           description: Номер платформы станции прибытия. Строка возвращается пустой, если номер платформы не указан.
 
-    Segments:
+    Segment:
       type: object
       properties:
         arrival:
@@ -651,7 +652,7 @@ components:
       type: object
       properties:
         code:
-          type: integer
+          type: number
           description: Код перевозчика в системе кодирования Яндекс Расписаний.
         contacts:
           type: string
@@ -1097,9 +1098,13 @@ components:
         pagination:
           $ref: "#/components/schemas/Pagination"
         interval_segments:
-          $ref: "#/components/schemas/IntervalSegments"
+          type: array
+          items:
+            $ref: "#/components/schemas/IntervalSegments"
         segments:
-          $ref: "#/components/schemas/Segments"
+          type: array
+          items:
+            $ref: "#/components/schemas/Segment"
         search:
           $ref: "#/components/schemas/Search"
 
@@ -1192,7 +1197,9 @@ components:
         pagination:
           $ref: "#/components/schemas/Pagination"
         stations:
-          $ref: "#/components/schemas/Station"
+          type: array
+          items:
+            $ref: "#/components/schemas/Station"
 
     NearestSettlementResponse:
       type: object
@@ -1224,7 +1231,10 @@ components:
     CarriersResponse:
       type: object
       properties:
+        carrier:
+          $ref: "#/components/schemas/Carrier"
         carriers:
+          nullable: true
           type: array
           items:
             $ref: "#/components/schemas/Carrier"

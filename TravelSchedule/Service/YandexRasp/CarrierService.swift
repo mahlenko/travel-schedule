@@ -2,46 +2,27 @@
 //  CarrierService.swift
 //  TravelSchedule
 //
-//  Created by Сергей Махленко on 07.03.2024.
+//  Created by Сергей Махленко on 10.03.2024.
 //
 
-import OpenAPIRuntime
-import OpenAPIURLSession
+typealias CarrierResponse = Components.Schemas.CarriersResponse
 
-// typealias Carrier = Components.Schemas.StationRoute
-
-/**
- Информация о перевозчике
- 
- Запрос позволяет получить информацию о перевозчике по указанному коду перевозчика.
-
- Коды перевозчиков можно получить в публичных справочниках кодов, а также в ответах на запросы: 
-  - Расписание рейсов между станциями,
-  - Расписание рейсов по станции,
-  - Список станций следования.
- 
- @see https://yandex.ru/dev/rasp/doc/ru/reference/query-carrier
- */
 protocol CarrierServiceProtocol {
-    func getCarrier(code: String) async throws -> Carrier
+    func getCarrier(carrier_code: String) async throws -> CarrierResponse
 }
 
 final class CarrierService: CarrierServiceProtocol {
     private let client: Client
-    private let apikey: String
-    
-    init(client: Client, apikey: String) {
+
+    init(client: Client) {
         self.client = client
-        self.apikey = apikey
     }
-    
-    func getCarrier(code: String) async throws -> Carrier {
-//        let response = try await client.getCarrier(query: .init(
-//            apikey: apikey,
-//            lat: lat,
-//            lng: lng
-//        ))
-//
-//        return try response.ok.body.json
+
+    func getCarrier(carrier_code: String) async throws -> CarrierResponse {
+        let response = try await client.getCarrier(query: .init(
+            code: carrier_code
+        ))
+
+        return try response.ok.body.json
     }
 }
