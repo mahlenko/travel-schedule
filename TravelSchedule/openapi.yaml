@@ -6,7 +6,7 @@ info:
 servers:
   - url: https://api.rasp.yandex.net
 security:
-  - apikey: []
+  - ApiKey: []
 paths:
   /v3.0/search/:
     get:
@@ -16,6 +16,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/fromRequired"
         - $ref: "#/components/parameters/toRequired"
+        - $ref: "#/components/parameters/apiKey"
         - $ref: "#/components/parameters/format"
         - $ref: "#/components/parameters/lang"
         - $ref: "#/components/parameters/date"
@@ -46,6 +47,7 @@ paths:
       operationId: getSchedule
       parameters:
         - $ref: "#/components/parameters/station"
+        - $ref: "#/components/parameters/apiKey"
         - $ref: "#/components/parameters/format"
         - $ref: "#/components/parameters/lang"
         - $ref: "#/components/parameters/date"
@@ -76,6 +78,7 @@ paths:
         - $ref: "#/components/parameters/uid"
         - $ref: "#/components/parameters/from"
         - $ref: "#/components/parameters/to"
+        - $ref: "#/components/parameters/apiKey"
         - $ref: "#/components/parameters/format"
         - $ref: "#/components/parameters/lang"
         - $ref: "#/components/parameters/date"
@@ -101,6 +104,7 @@ paths:
         - $ref: "#/components/parameters/lat"
         - $ref: "#/components/parameters/lng"
         - $ref: "#/components/parameters/distanceRequired"
+        - $ref: "#/components/parameters/apiKey"
         - $ref: "#/components/parameters/format"
         - $ref: "#/components/parameters/lang"
         - $ref: "#/components/parameters/station_types"
@@ -128,6 +132,7 @@ paths:
         - $ref: "#/components/parameters/lat"
         - $ref: "#/components/parameters/lng"
         - $ref: "#/components/parameters/distance"
+        - $ref: "#/components/parameters/apiKey"
         - $ref: "#/components/parameters/format"
         - $ref: "#/components/parameters/lang"
       responses:
@@ -149,6 +154,7 @@ paths:
       operationId: getCarrier
       parameters:
         - $ref: "#/components/parameters/code"
+        - $ref: "#/components/parameters/apiKey"
         - $ref: "#/components/parameters/format"
         - $ref: "#/components/parameters/lang"
         - $ref: "#/components/parameters/system"
@@ -170,6 +176,7 @@ paths:
       description: "Ресурс содержит полный список станций, информацию о которых предоставляют Яндекс Расписания. Список структурирован географически: ответ содержит список стран со вложенными списками регионов и населенных пунктов, в которых находятся станции. **Размер возвращаемого JSON-документа — около 40 МБ**."
       operationId: getStationsList
       parameters:
+        - $ref: "#/components/parameters/apiKey"
         - $ref: "#/components/parameters/format"
         - $ref: "#/components/parameters/lang"
       responses:
@@ -190,6 +197,7 @@ paths:
       description: "Запрос позволяет получить данные о Яндекс Расписаниях: URL сервиса, баннер в различных цветовых представлениях и уведомительный текст. Все эти данные следует разместить ниже или выше места, в котором расположена информация о расписаниях, в следующем порядке: Баннер, Уведомительный текст, URL Яндекс Расписаний"
       operationId: getCopyright
       parameters:
+        - $ref: "#/components/parameters/apiKey"
         - $ref: "#/components/parameters/format"
       responses:
         200:
@@ -205,18 +213,17 @@ paths:
 
 components:
   securitySchemes:
-    apikey:
-      type: apiKey
-      name: apikey
+    ApiKey:
       description: Ключ доступа к API.
-      in: query
+      type: apiKey
+      name: Authorization
+      in: header
 
   parameters:
-    apikey:
+    apiKey:
       name: apikey
       description: Ключ доступа к API.
       in: query
-      required: true
       schema:
         type: string
 
@@ -413,14 +420,14 @@ components:
       in: query
       required: true
       schema:
-        type: number
+        type: integer
 
     distance:
       name: distance
       description: Радиус, в котором следует искать станции, в километрах.
       in: query
       schema:
-        type: number
+        type: integer
 
     code:
       name: code
