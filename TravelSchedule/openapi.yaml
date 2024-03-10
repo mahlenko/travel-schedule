@@ -89,7 +89,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/StationListResponse"
+                $ref: "#/components/schemas/StationThreadsResponse"
         400:
           $ref: "#/components/responses/400"
         404:
@@ -1124,7 +1124,7 @@ components:
         directions:
           $ref: "#/components/schemas/Directions"
 
-    StationListResponse:
+    StationThreadsResponse:
       type: object
       description: Результат списка станций следования
       properties:
