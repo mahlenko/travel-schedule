@@ -2,39 +2,27 @@
 //  StationsListService.swift
 //  TravelSchedule
 //
-//  Created by Сергей Махленко on 07.03.2024.
+//  Created by Сергей Махленко on 10.03.2024.
 //
 
-import OpenAPIRuntime
-import OpenAPIURLSession
+import Foundation
 
-// typealias StationList = Components.Schemas.StationRoute
+typealias StationsResponse = Components.Schemas.StationsResponse
 
-/**
- Список всех доступных станций
- 
- Ресурс содержит полный список станций, информацию о которых предоставляют Яндекс Расписания.
- Список структурирован географически: ответ содержит список стран со вложенными списками регионов и населенных пунктов, в которых находятся станции.
-
- Размер возвращаемого JSON-документа — около 40 МБ.
- 
- @see https://yandex.ru/dev/rasp/doc/ru/reference/stations-list
- */
-protocol StationListServiceProtocol {
-    func getStationsList() async throws -> StationList
+protocol StationsListServiceProtocol {
+    func getStationsList() async throws -> StationsResponse
 }
 
-final class StationsListService: StationListServiceProtocol {
+final class StationsListService: StationsListServiceProtocol {
     private let client: Client
-    private let apikey: String
-    
-    init(client: Client, apikey: String) {
+
+    init(client: Client) {
         self.client = client
-        self.apikey = apikey
     }
     
-    func getStationsList() async throws -> StationsList {
-//        let response = try await client.getStationList()
-//        return try response.ok.body.json
+    func getStationsList() async throws -> StationsResponse {
+        let response = try await client.getStationsList()
+
+        return try response.ok.body.json
     }
 }
