@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: API.Rasp.Yandex.Net
   description: API Яндекс.Расписаний
-  version: 3.0.3
+  version: 3.0.0
 servers:
   - url: https://api.rasp.yandex.net
 security:
