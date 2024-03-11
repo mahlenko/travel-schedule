@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=swift,cocoapods,xcode
 
 .idea
-TravelSchedule/Service/YandexRaspConfig.swift
+Service/YandexRaspConfig.swift
 
 ### CocoaPods ###
 ## CocoaPods GitIgnore Template
