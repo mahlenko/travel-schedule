@@ -1073,11 +1073,17 @@ components:
           type: string
           description: Название станции.
         longitude:
+          oneOf:
+            - type: number
+            - type: string
           description: Долгота станции.
           nullable: true
         transport_type:
           $ref: "#/components/schemas/TransportType"
         latitude:
+          oneOf:
+            - type: number
+            - type: string
           description: Широта станции.
           nullable: true
 
