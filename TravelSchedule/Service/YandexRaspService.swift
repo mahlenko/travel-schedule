@@ -32,7 +32,13 @@ final class YandexRaspService: YandexRaspServiceProtocol {
 
         return client
     }
-    
+
+    init() {
+        if YandexRaspConfig.APIKEY.isEmpty {
+            fatalError("Setup Yandex Rasp API key on Service/YandexRaspConfig.")
+        }
+    }
+
     func search() async throws -> SearchServiceProtocol {
         SearchService(client: client)
     }
