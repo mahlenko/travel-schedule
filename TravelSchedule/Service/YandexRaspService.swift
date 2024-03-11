@@ -35,7 +35,7 @@ final class YandexRaspService: YandexRaspServiceProtocol {
 
     init() {
         if YandexRaspConfig.APIKEY.isEmpty {
-            fatalError("Setup Yandex Rasp API key on Service/YandexRaspConfig.")
+            fatalError("Setup Yandex Rasp API key on Service/YandexRaspConfig.swift")
         }
     }
 
