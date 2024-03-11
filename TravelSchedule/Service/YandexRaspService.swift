@@ -20,8 +20,10 @@ protocol YandexRaspServiceProtocol {
 }
 
 final class YandexRaspService: YandexRaspServiceProtocol {
+    private let apikey: String
+
     private var client: Client {
-        let authenticationMiddleware = AuthenticationMiddleware()
+        let authenticationMiddleware = AuthenticationMiddleware(apikey: self.apikey)
         let logRequestMiddleware = LogRequestMiddleware()
 
         let client = Client(
@@ -33,10 +35,8 @@ final class YandexRaspService: YandexRaspServiceProtocol {
         return client
     }
 
-    init() {
-        if YandexRaspConfig.APIKEY.isEmpty {
-            fatalError("Setup Yandex Rasp API key on Service/YandexRaspConfig.swift")
-        }
+    init(apikey: String) {
+        self.apikey = apikey
     }
 
     func search() async throws -> SearchServiceProtocol {

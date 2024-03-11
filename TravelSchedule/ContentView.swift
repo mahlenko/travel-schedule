@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    private let services = YandexRaspService()
-    
+    private let services = YandexRaspService(apikey: YandexRaspConfig.APIKEY)
+
     var body: some View {
         VStack {
             Image(systemName: "globe")
