@@ -187,6 +187,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/StationsResponse"
 
+            text/html:
+                schema: {}
+
         400:
           $ref: "#/components/responses/400"
         404:
