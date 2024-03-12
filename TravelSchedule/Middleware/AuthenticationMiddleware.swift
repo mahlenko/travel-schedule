@@ -11,6 +11,17 @@ import HTTPTypes
 import struct Foundation.URL
 
 struct AuthenticationMiddleware: ClientMiddleware {
+    
+    private let apikey: String
+
+    init(apikey: String) {
+        if apikey.isEmpty {
+            fatalError("Specify the API access key.")
+        }
+
+        self.apikey = apikey
+    }
+
     func intercept(
         _ request: HTTPRequest,
         body: HTTPBody?,
@@ -19,8 +30,8 @@ struct AuthenticationMiddleware: ClientMiddleware {
         next: (HTTPRequest, HTTPBody?, URL) async throws -> (HTTPResponse, HTTPBody?)
     ) async throws -> (HTTPResponse, HTTPBody?) {
         var request = request
-        request.headerFields[.authorization] = "\(YandexRaspConfig.APIKEY)"
-        
+        request.headerFields[.authorization] = "\(apikey)"
+
         return try await next(request, body, baseURL)
     }
 }

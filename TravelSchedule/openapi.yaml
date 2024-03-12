@@ -187,6 +187,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/StationsResponse"
 
+            text/html:
+                schema: {}
+
         400:
           $ref: "#/components/responses/400"
         404:
@@ -263,10 +266,7 @@ components:
       description: Формат ответа. Поддерживаемые значения
       in: query
       schema:
-        default: json
-        enum:
-          - json
-          - xml
+        $ref: "#/components/schemas/Format"
 
     lang:
       name: lang
@@ -681,19 +681,30 @@ components:
           type: string
           description: Электронный почтовый адрес перевозчика.
 
+    Format:
+      type: string
+      description: Формат ответа
+      default: json
+      enum:
+        - json
+        - xml
+
     TransportType:
       type: string
       description: Тип отправляющегося транспортного средства.
+      nullable: true
       enum:
         - plane
         - train
         - suburban
         - bus
         - water
+        - sea
         - helicopter
 
     TransportSubtype:
       type: object
+      nullable: true
       properties:
         color:
           type: string
@@ -731,6 +742,7 @@ components:
     Type:
       type: string
       description: Вид пункта отправления.
+      nullable: true
       enum:
         - station
         - settlement
@@ -738,6 +750,7 @@ components:
     StationType:
       type: string
       description: Тип станции.
+      nullable: true
       enum:
         - station
         - platform
@@ -756,6 +769,7 @@ components:
         - wharf
         - river_port
         - marine_station
+        -
 
     ExpressType:
       type: string
@@ -917,7 +931,7 @@ components:
       properties:
         express:
           type: string
-          description: В системе кодирования Экспресс-3.
+          description: "В системе кодирования Экспресс-3"
           nullable: true
         yandex:
           type: string
@@ -929,6 +943,7 @@ components:
     StationCodesCode:
       type: object
       description: Код станции
+      nullable: true
       properties:
         yandex_code:
           type: string
@@ -1012,6 +1027,7 @@ components:
           $ref: "#/components/schemas/StationCodesCode"
         title:
           type: string
+          nullable: true
           description: Название страны.
 
     Regions:
@@ -1033,6 +1049,7 @@ components:
         title:
           type: string
           description: Название населенного пункта.
+          nullable: true
         codes:
           $ref: "#/components/schemas/StationCodesCode"
         stations:
@@ -1047,6 +1064,7 @@ components:
         direction:
           type: string
           description: Направление движения поездов, на котором находится станция. Значение пусто, если станция не железнодорожная.
+          nullable: true
         codes:
           $ref: "#/components/schemas/StationCodesCode"
         station_type:
@@ -1055,13 +1073,19 @@ components:
           type: string
           description: Название станции.
         longitude:
-          type: number
+          oneOf:
+            - type: number
+            - type: string
           description: Долгота станции.
+          nullable: true
         transport_type:
           $ref: "#/components/schemas/TransportType"
         latitude:
-          type: number
+          oneOf:
+            - type: number
+            - type: string
           description: Широта станции.
+          nullable: true
 
     Copyright:
       type: object
